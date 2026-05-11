@@ -17,4 +17,4 @@ connection.commit()
 
 connection.close()
 
-print("Users tabel oprettet")
+print("Users tabel oprettet hebdjheb jebdjwbi")
