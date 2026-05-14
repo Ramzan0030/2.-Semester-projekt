@@ -16,5 +16,8 @@ def login():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+<<<<<<< HEAD
     
+=======
+>>>>>>> b837fe4a52ecdf7a32f6a59866a336c8bb802722
     
