@@ -1,21 +1,11 @@
 * {
-
   margin: 0;
-
   padding: 0;
-
   box-sizing: border-box;
-
-}
+  }
 
 body {
-
-```
 font-family: Arial, sans-serif;
-
-overflow-x: hidden;
-```
-
 }
 
 /* NAVBAR */
@@ -65,12 +55,12 @@ display: flex;
 
 align-items: center;
 
-gap: 20px;
+gap: 25px;
 ```
 
 }
 
-/* MENU BUTTONS */
+/* LINKS */
 
 .menu a {
 
@@ -79,27 +69,21 @@ text-decoration: none;
 
 color: black;
 
-font-size: 14px;
+font-size: 15px;
 
 font-weight: bold;
-
-padding: 12px 18px;
-
-border-radius: 6px;
 
 transition: 0.3s;
 ```
 
 }
 
-/* HOVER EFFECT */
+/* HOVER */
 
 .menu a:hover {
 
 ```
-background: goldenrod;
-
-color: white;
+color: goldenrod;
 ```
 
 }
@@ -112,36 +96,30 @@ color: white;
 background: goldenrod;
 
 color: white !important;
+
+padding: 12px 22px;
+
+border-radius: 5px;
 ```
 
 }
 
-/* HERO SECTION */
+/* HERO */
 
 .hero {
 
 ```
+width: 100%;
+
 height: 100vh;
 
 background-image:
     linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-    url("../static/images/hero.jpg");
+    url("/static/images/hero.jpg");
 
 background-size: cover;
 
 background-position: center;
-```
-
-}
-
-/* HERO OVERLAY */
-
-.overlay {
-
-```
-width: 100%;
-
-height: 100%;
 
 display: flex;
 
@@ -167,7 +145,7 @@ color: white;
 .hero-content h1 {
 
 ```
-font-size: 70px;
+font-size: 75px;
 
 margin-bottom: 20px;
 ```
@@ -177,43 +155,7 @@ margin-bottom: 20px;
 .hero-content p {
 
 ```
-font-size: 24px;
-
-margin-bottom: 35px;
-```
-
-}
-
-/* HERO BUTTON */
-
-.hero-button {
-
-```
-background: goldenrod;
-
-color: white;
-
-padding: 15px 35px;
-
-text-decoration: none;
-
-border-radius: 5px;
-
-font-size: 22px;
-
-font-weight: bold;
-
-transition: 0.3s;
-```
-
-}
-
-.hero-button:hover {
-
-```
-background: white;
-
-color: black;
+font-size: 28px;
 ```
 
 }
