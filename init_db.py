@@ -1,11 +1,10 @@
 import sqlite3
 
 connection = sqlite3.connect("booking_system.db")
-
 cursor = connection.cursor()
 
 cursor.execute("""
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
@@ -13,9 +12,8 @@ CREATE TABLE users (
 )
 """)
 
-
 cursor.execute("""
-CREATE TABLE trainers (
+CREATE TABLE IF NOT EXISTS trainers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     specialty TEXT NOT NULL
@@ -23,7 +21,7 @@ CREATE TABLE trainers (
 """)
 
 cursor.execute("""
-CREATE TABLE players (
+CREATE TABLE IF NOT EXISTS players (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     age INTEGER NOT NULL,
@@ -31,9 +29,8 @@ CREATE TABLE players (
 )
 """)
 
-
 cursor.execute("""
-CREATE TABLE fields (
+CREATE TABLE IF NOT EXISTS fields (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     field_name TEXT NOT NULL,
     field_type TEXT NOT NULL
@@ -41,7 +38,7 @@ CREATE TABLE fields (
 """)
 
 cursor.execute("""
-CREATE TABLE bookings (
+CREATE TABLE IF NOT EXISTS bookings (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     trainer_id INTEGER NOT NULL,
@@ -56,7 +53,6 @@ CREATE TABLE bookings (
 """)
 
 connection.commit()
-
 connection.close()
 
-print("det virker shababs ")
+print("Database og tabeller oprettet!")
