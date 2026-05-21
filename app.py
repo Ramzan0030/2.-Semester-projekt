@@ -65,13 +65,14 @@ def login():
             session["user_id"] = user[0]
             session["name"] = user[1]
             session["email"] = user[2]
-     if email == "admin@dfa.dk":
 
-        return redirect("/admin")
+            if email == "admin@dfa.dk":
 
-    else:
+                return redirect("/admin")
 
-            return redirect("/booking")
+            else:
+
+                return redirect("/booking")
 
         else:
 
@@ -88,41 +89,134 @@ def booking():
 
     if request.method == "POST":
 
-        field = request.form["field"]
-        trainer = request.form["trainer"]
+        training = request.form["training"]
+
+        trainer, time = training.split("|")
+
         date = request.form["date"]
-        time = request.form["time"]
 
         connection = sqlite3.connect("booking_system.db")
+
+        count = connection.execute(
+            """
+            SELECT COUNT(*)
+
+            FROM bookings
+
+            WHERE trainer_name = ?
+            AND booking_date = ?
+            AND booking_time = ?
+            """,
+            (trainer, date, time)
+        ).fetchone()[0]
+
+        if count >= 5:
+
+            connection.close()
+
+            return "Holdet er fyldt"
 
         connection.execute(
             """
             INSERT INTO bookings
-            (user_id, trainer_id, field_id, booking_date, booking_time)
+            (user_id, trainer_name, booking_date, booking_time)
 
-            VALUES (?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?)
             """,
             (
                 session["user_id"],
-                1,
-                1,
+                trainer,
                 date,
                 time
             )
         )
 
         connection.commit()
+
+        trainings = [
+
+            ("Mustafa Baskaya", "12:00"),
+
+            ("Muzaffer Celik", "14:00"),
+
+            ("Mehmet Dagli", "16:00")
+
+        ]
+
+        training_data = []
+
+        for trainer_name, training_time in trainings:
+
+            booked = connection.execute(
+                """
+                SELECT COUNT(*)
+
+                FROM bookings
+
+                WHERE trainer_name = ?
+                AND booking_time = ?
+                """,
+                (trainer_name, training_time)
+            ).fetchone()[0]
+
+            remaining = 5 - booked
+
+            training_data.append(
+                (trainer_name, training_time, remaining)
+            )
+
         connection.close()
+
+        remaining = 5 - (count + 1)
 
         return render_template(
             "booking_success.html",
-            field=field,
             trainer=trainer,
             date=date,
-            time=time
+            time=time,
+            remaining=remaining
         )
 
-    return render_template("booking.html")
+    trainings = [
+
+        ("Mustafa Baskaya", "12:00"),
+
+        ("Muzaffer Celik", "14:00"),
+
+        ("Mehmet Dagli", "16:00")
+
+    ]
+
+    training_data = []
+
+    connection = sqlite3.connect("booking_system.db")
+
+    for trainer, time in trainings:
+
+        count = connection.execute(
+            """
+            SELECT COUNT(*)
+
+            FROM bookings
+
+            WHERE trainer_name = ?
+            AND booking_time = ?
+            """,
+            (trainer, time)
+        ).fetchone()[0]
+
+        remaining = 5 - count
+
+        training_data.append(
+            (trainer, time, remaining)
+        )
+
+    connection.close()
+
+    return render_template(
+        "booking.html",
+        trainings=training_data
+    )
 
 
 @app.route("/admin")
@@ -142,8 +236,17 @@ def admin():
 
     bookings = connection.execute(
         """
-        SELECT id, booking_date, booking_time
+        SELECT
+            bookings.id,
+            users.name,
+            trainer_name,
+            booking_date,
+            booking_time
+
         FROM bookings
+
+        JOIN users
+        ON bookings.user_id = users.id
         """
     ).fetchall()
 

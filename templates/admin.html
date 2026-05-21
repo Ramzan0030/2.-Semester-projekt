@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Admin Panel</title>
+
+    <style>
+
+        body {
+
+            font-family: Arial;
+
+            background-color: #f2f2f2;
+
+            padding: 40px;
+
+        }
+
+        .box {
+
+            background: white;
+
+            padding: 40px;
+
+            border-radius: 10px;
+
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+
+        }
+
+        h1, h2 {
+
+            color: #1e3a8a;
+
+        }
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            margin-bottom: 40px;
+
+        }
+
+        th, td {
+
+            border: 1px solid #ccc;
+
+            padding: 12px;
+
+            text-align: left;
+
+        }
+
+        a {
+
+            color: red;
+
+            text-decoration: none;
+
+        }
+
+        .logout {
+
+            display: inline-block;
+
+            margin-top: 20px;
+
+            padding: 12px 20px;
+
+            background-color: #1e3a8a;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 5px;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h1>Admin Panel</h1>
+
+        <h2>Brugere</h2>
+
+        <table>
+
+            <tr>
+
+                <th>ID</th>
+                <th>Navn</th>
+                <th>Email</th>
+
+            </tr>
+
+            {% for user in users %}
+
+            <tr>
+
+                <td>{{ user[0] }}</td>
+                <td>{{ user[1] }}</td>
+                <td>{{ user[2] }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+        <h2>Bookinger</h2>
+
+        <table>
+
+            <tr>
+
+                <th>ID</th>
+                <th>Bruger</th>
+                <th>Træner</th>
+                <th>Dato</th>
+                <th>Tid</th>
+                <th>Slet</th>
+
+            </tr>
+
+            {% for booking in bookings %}
+
+            <tr>
+
+                <td>{{ booking[0] }}</td>
+                <td>{{ booking[1] }}</td>
+                <td>{{ booking[2] }}</td>
+                <td>{{ booking[3] }}</td>
+                <td>{{ booking[4] }}</td>
+
+                <td>
+
+                    <a href="/delete_booking/{{ booking[0] }}">
+                        Slet
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+        <a class="logout" href="/logout">
+
+            Log ud
+
+        </a>
+
+    </div>
+
+</body>
+
+</html>

@@ -150,17 +150,17 @@
 
                 <select name="training">
 
-                    <option value="Mustafa Baskaya|12:00">
-                        Mustafa Baskaya - 12:00 (5 pladser)
+                    {% for training in trainings %}
+
+                    <option value="{{ training[0] }}|{{ training[1] }}">
+
+                        {{ training[0] }} -
+                        {{ training[1] }}
+                        ({{ training[2] }} pladser tilbage)
+
                     </option>
 
-                    <option value="Muzaffer Celik|14:00">
-                        Muzaffer Celik - 14:00 (5 pladser)
-                    </option>
-
-                    <option value="Mehmet Dagli|16:00">
-                        Mehmet Dagli - 16:00 (5 pladser)
-                    </option>
+                    {% endfor %}
 
                 </select>
 
