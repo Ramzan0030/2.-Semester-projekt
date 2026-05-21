@@ -7,48 +7,179 @@
 
     <title>Booking</title>
 
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial;
+            background-color: #f2f2f2;
+        }
+
+        .navbar {
+
+            background-color: #1e3a8a;
+
+            padding: 20px;
+
+            color: white;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+        .navbar a {
+
+            color: white;
+
+            text-decoration: none;
+
+        }
+
+        .content {
+
+            padding: 40px;
+
+            display: flex;
+
+            justify-content: center;
+
+        }
+
+        .card {
+
+            background-color: white;
+
+            padding: 40px;
+
+            width: 500px;
+
+            border-radius: 10px;
+
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+
+        }
+
+        h1 {
+
+            color: #1e3a8a;
+
+            text-align: center;
+
+            margin-bottom: 30px;
+
+        }
+
+        label {
+
+            font-weight: bold;
+
+        }
+
+        select,
+        input {
+
+            width: 100%;
+
+            padding: 12px;
+
+            margin-top: 5px;
+
+            margin-bottom: 20px;
+
+            border-radius: 5px;
+
+            border: 1px solid #ccc;
+
+            box-sizing: border-box;
+
+        }
+
+        button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            background-color: #1e3a8a;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 5px;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+        }
+
+        button:hover {
+
+            background-color: #172554;
+
+        }
+
+    </style>
+
 </head>
 
 <body>
 
-    <h1>Book træning</h1>
+    <div class="navbar">
 
-    <form method="POST">
+        <h2>Diamond Football Academy</h2>
 
-        <label>Vælg træning</label>
+        <a href="/logout">Log ud</a>
 
-        <select name="training">
+    </div>
 
-            <option value="Mustafa Baskaya|12:00">
-                Mustafa Baskaya - 12:00 (5 pladser)
-            </option>
+    <div class="content">
 
-            <option value="Muzaffer Celik|14:00">
-                Muzaffer Celik - 14:00 (5 pladser)
-            </option>
+        <div class="card">
 
-            <option value="Mehmet Dagli|16:00">
-                Mehmet Dagli - 16:00 (5 pladser)
-            </option>
+            <h1>Book træning</h1>
 
-        </select>
+            <form method="POST">
 
-        <br><br>
+                <label>Vælg træning</label>
 
-        <label>Vælg dato</label>
+                <select name="training">
 
-        <input type="date"
-               name="date">
+                    <option value="Mustafa Baskaya|12:00">
+                        Mustafa Baskaya - 12:00 (5 pladser)
+                    </option>
 
-        <br><br>
+                    <option value="Muzaffer Celik|14:00">
+                        Muzaffer Celik - 14:00 (5 pladser)
+                    </option>
 
-        <button type="submit">
+                    <option value="Mehmet Dagli|16:00">
+                        Mehmet Dagli - 16:00 (5 pladser)
+                    </option>
 
-            Book træning
+                </select>
 
-        </button>
+                <label>Vælg dato</label>
 
-    </form>
+                <input type="date"
+                       name="date">
+
+                <button type="submit">
+
+                    Book træning
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
 
 </body>
 
