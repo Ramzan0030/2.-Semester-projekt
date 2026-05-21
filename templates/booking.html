@@ -1,39 +1,55 @@
 <!DOCTYPE html>
 <html lang="da">
+
 <head>
+
     <meta charset="UTF-8">
+
     <title>Booking</title>
-    <style>
-        body { margin: 0; font-family: Arial; background-color: #f2f2f2; }
-        .navbar {
-            background-color: #1e3a8a;
-            padding: 20px;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .navbar a { color: white; text-decoration: none; }
-        .content { padding: 40px; }
-        .card {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
-        }
-        h1 { color: #1e3a8a; }
-    </style>
+
 </head>
+
 <body>
-<div class="navbar">
-    <h2>Football Academy</h2>
-    <a href="/logout">Log ud</a>
-</div>
-<div class="content">
-    <div class="card">
-        <h1>Velkommen, {{ session["name"] }}!</h1>
-        <p>Booking kommer snart.</p>
-    </div>
-</div>
+
+    <h1>Book træning</h1>
+
+    <form method="POST">
+
+        <label>Vælg træning</label>
+
+        <select name="training">
+
+            <option value="Mustafa Baskaya|12:00">
+                Mustafa Baskaya - 12:00 (5 pladser)
+            </option>
+
+            <option value="Muzaffer Celik|14:00">
+                Muzaffer Celik - 14:00 (5 pladser)
+            </option>
+
+            <option value="Mehmet Dagli|16:00">
+                Mehmet Dagli - 16:00 (5 pladser)
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <label>Vælg dato</label>
+
+        <input type="date"
+               name="date">
+
+        <br><br>
+
+        <button type="submit">
+
+            Book træning
+
+        </button>
+
+    </form>
+
 </body>
+
 </html>

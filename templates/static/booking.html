@@ -1,49 +1,142 @@
 <!DOCTYPE html>
+
 <html lang="da">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Booking</title>
 
-    <style>
+```
+<meta charset="UTF-8">
 
-        body{
-            margin: 0;
-            font-family: Arial;
-            background-color: #f2f2f2;
-        }
+<title>Booking</title>
 
-        .navbar{
-            background-color: #1e3a8a;
-            padding: 20px;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-        }
+<style>
 
-        .content{
-            padding: 40px;
-        }
+    body {
+        margin: 0;
+        font-family: Arial;
+        background-color: #f2f2f2;
+    }
 
-        .card{
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
-        }
+    .navbar {
 
-        a{
-            color: white;
-            text-decoration: none;
-        }
+        background-color: #1e3a8a;
 
-    </style>
+        padding: 20px;
+
+        color: white;
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+    }
+
+    .navbar a {
+
+        color: white;
+
+        text-decoration: none;
+
+    }
+
+    .content {
+
+        padding: 40px;
+
+        display: flex;
+
+        justify-content: center;
+
+    }
+
+    .card {
+
+        background-color: white;
+
+        padding: 40px;
+
+        width: 500px;
+
+        border-radius: 10px;
+
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+
+    }
+
+    h1 {
+
+        color: #1e3a8a;
+
+        text-align: center;
+
+        margin-bottom: 30px;
+
+    }
+
+    label {
+
+        font-weight: bold;
+
+    }
+
+    select,
+    input {
+
+        width: 100%;
+
+        padding: 12px;
+
+        margin-top: 5px;
+
+        margin-bottom: 20px;
+
+        border-radius: 5px;
+
+        border: 1px solid #ccc;
+
+        box-sizing: border-box;
+
+    }
+
+    button {
+
+        width: 100%;
+
+        padding: 14px;
+
+        background-color: #1e3a8a;
+
+        color: white;
+
+        border: none;
+
+        border-radius: 5px;
+
+        font-size: 16px;
+
+        cursor: pointer;
+
+    }
+
+    button:hover {
+
+        background-color: #172554;
+
+    }
+
+</style>
+```
 
 </head>
+
 <body>
 
+```
 <div class="navbar">
 
-    <h2>Football Academy</h2>
+    <h2>Diamond Football Academy</h2>
 
     <a href="/logout">Log ud</a>
 
@@ -53,15 +146,56 @@
 
     <div class="card">
 
-        <h1>Booking side</h1>
+        <h1>Book en bane</h1>
 
-        <p>Du er logget ind.</p>
+        <form method="POST">
 
-        <p>Her kan man senere booke baner og trænere.</p>
+            <label>Vælg bane</label>
+
+            <select name="field">
+
+                <option>Bane 1</option>
+
+                <option>Bane 2</option>
+
+                <option>Bane 3</option>
+
+            </select>
+
+            <label>Vælg dato</label>
+
+            <input type="date"
+                   name="date"
+                   min="2026-05-20"
+                   max="2026-08-31">
+
+            <label>Vælg tidspunkt</label>
+
+            <select name="time">
+
+                <option>08:00</option>
+                <option>10:00</option>
+                <option>12:00</option>
+                <option>14:00</option>
+                <option>16:00</option>
+                <option>18:00</option>
+                <option>20:00</option>
+
+            </select>
+
+            <button type="submit">
+
+                Book bane
+
+            </button>
+
+        </form>
 
     </div>
 
 </div>
+```
 
 </body>
+
 </html>
