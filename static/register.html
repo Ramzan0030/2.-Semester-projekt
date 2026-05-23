@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret bruger</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container{
+            background-color: white;
+            padding: 40px;
+            width: 350px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        }
+
+        h1{
+            text-align: center;
+            color: #1e3a8a;
+        }
+
+        input{
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button{
+            width: 100%;
+            padding: 12px;
+            background-color: #1e3a8a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover{
+            background-color: #172554;
+        }
+
+        a{
+            text-decoration: none;
+            color: #1e3a8a;
+        }
+
+        p{
+            text-align: center;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Opret bruger</h1>
+
+    <form method="POST">
+
+        <label>Navn</label>
+        <input type="text" name="name">
+
+        <label>Email</label>
+        <input type="email" name="email">
+
+        <label>Password</label>
+        <input type="password" name="password">
+
+        <button type="submit">Opret</button>
+
+    </form>
+
+    <p>
+        Har du allerede en bruger?
+        <a href="/login">Login</a>
+    </p>
+
+</div>
+
+</body>
+</html>
