@@ -2,184 +2,124 @@
 <html lang="da">
 
 <head>
+<meta charset="UTF-8">
+<title>Booking</title>
 
-    <meta charset="UTF-8">
+<style>
 
-    <title>Booking</title>
+body{
+margin:0;
+font-family:Arial;
+background:#f2f2f2;
+}
 
-    <style>
+.navbar{
+background:#1e3a8a;
+padding:20px;
+color:white;
+display:flex;
+justify-content:space-between;
+}
 
-        body {
-            margin: 0;
-            font-family: Arial;
-            background-color: #f2f2f2;
-        }
+.navbar a{
+color:white;
+text-decoration:none;
+}
 
-        .navbar {
+.content{
+display:flex;
+justify-content:center;
+padding:40px;
+}
 
-            background-color: #1e3a8a;
+.card{
+background:white;
+padding:40px;
+width:500px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,.2);
+}
 
-            padding: 20px;
+select,input,button{
 
-            color: white;
+width:100%;
+padding:12px;
+margin-bottom:20px;
+}
 
-            display: flex;
+button{
 
-            justify-content: space-between;
+background:#1e3a8a;
+color:white;
+border:none;
+border-radius:5px;
+}
 
-            align-items: center;
-
-        }
-
-        .navbar a {
-
-            color: white;
-
-            text-decoration: none;
-
-        }
-
-        .content {
-
-            padding: 40px;
-
-            display: flex;
-
-            justify-content: center;
-
-        }
-
-        .card {
-
-            background-color: white;
-
-            padding: 40px;
-
-            width: 500px;
-
-            border-radius: 10px;
-
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
-
-        }
-
-        h1 {
-
-            color: #1e3a8a;
-
-            text-align: center;
-
-            margin-bottom: 30px;
-
-        }
-
-        label {
-
-            font-weight: bold;
-
-        }
-
-        select,
-        input {
-
-            width: 100%;
-
-            padding: 12px;
-
-            margin-top: 5px;
-
-            margin-bottom: 20px;
-
-            border-radius: 5px;
-
-            border: 1px solid #ccc;
-
-            box-sizing: border-box;
-
-        }
-
-        button {
-
-            width: 100%;
-
-            padding: 14px;
-
-            background-color: #1e3a8a;
-
-            color: white;
-
-            border: none;
-
-            border-radius: 5px;
-
-            font-size: 16px;
-
-            cursor: pointer;
-
-        }
-
-        button:hover {
-
-            background-color: #172554;
-
-        }
-
-    </style>
+</style>
 
 </head>
 
 <body>
 
-    <div class="navbar">
+<div class="navbar">
 
-        <h2>Diamond Football Academy</h2>
+<h2>Diamond Football Academy</h2>
 
-        <a href="/logout">Log ud</a>
+<a href="/logout">
 
-    </div>
+Log ud
 
-    <div class="content">
+</a>
 
-        <div class="card">
+</div>
 
-            <h1>Book træning</h1>
+<div class="content">
 
-            <form method="POST">
+<div class="card">
 
-                <label>Vælg træning</label>
+<h1>Book træning</h1>
 
-                <select name="training">
+<form method="POST">
 
-                    {% for training in trainings %}
+<label>Vælg træning</label>
 
-                    <option value="{{ training[0] }}|{{ training[1] }}">
+<select name="training">
 
-                        {{ training[0] }} -
-                        {{ training[1] }}
-                        ({{ training[2] }} pladser tilbage)
+{% for training in trainings %}
 
-                    </option>
+<option value="{{training[0]}}|{{training[1]}}">
 
-                    {% endfor %}
+{{training[0]}}
+-
+{{training[1]}}
+({{training[2]}} pladser tilbage)
 
-                </select>
+</option>
 
-                <label>Vælg dato</label>
+{% endfor %}
 
-                <input type="date"
-                       name="date">
+</select>
 
-                <button type="submit">
+<label>Vælg dato</label>
 
-                    Book træning
+<input
+type="date"
+name="date"
+min="2026-05-21"
+max="2026-10-21"
+>
 
-                </button>
+<button type="submit">
 
-            </form>
+Book træning
 
-        </div>
+</button>
 
-    </div>
+</form>
+
+</div>
+
+</div>
 
 </body>
 

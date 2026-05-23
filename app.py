@@ -24,7 +24,7 @@ def register():
         try:
 
             connection.execute(
-                "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
+                "INSERT INTO users(name,email,password) VALUES(?,?,?)",
                 (name, email, password)
             )
 
@@ -32,7 +32,7 @@ def register():
 
         except sqlite3.IntegrityError:
 
-            return "Email er allerede i brug"
+            return "Email findes allerede"
 
         finally:
 
@@ -43,74 +43,84 @@ def register():
     return render_template("register.html")
 
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/login", methods=["GET","POST"])
 def login():
 
     if request.method == "POST":
 
-        email = request.form["email"]
-        password = request.form["password"]
+        email=request.form["email"]
+        password=request.form["password"]
 
-        connection = sqlite3.connect("booking_system.db")
+        connection=sqlite3.connect("booking_system.db")
 
-        user = connection.execute(
-            "SELECT * FROM users WHERE email = ? AND password = ?",
-            (email, password)
+        user=connection.execute(
+            """
+            SELECT *
+            FROM users
+            WHERE email=?
+            AND password=?
+            """,
+            (email,password)
         ).fetchone()
 
         connection.close()
 
         if user:
 
-            session["user_id"] = user[0]
-            session["name"] = user[1]
-            session["email"] = user[2]
+            session["user_id"]=user[0]
+            session["name"]=user[1]
+            session["email"]=user[2]
 
-            if email == "admin@dfa.dk":
+            if email=="admin@dfa.dk":
 
                 return redirect("/admin")
 
-            else:
+            return redirect("/booking")
 
-                return redirect("/booking")
-
-        else:
-
-            return "Forkert email eller adgangskode"
+        return "Forkert email eller adgangskode"
 
     return render_template("login.html")
 
 
-@app.route("/booking", methods=["GET", "POST"])
+@app.route("/booking", methods=["GET","POST"])
 def booking():
 
     if "user_id" not in session:
+
         return redirect("/login")
 
-    if request.method == "POST":
+    trainings=[
 
-        training = request.form["training"]
+        ("Mustafa Baskaya","12:00"),
+        ("Muzaffer Celik","14:00"),
+        ("Mehmet Dagli","16:00")
 
-        trainer, time = training.split("|")
+    ]
 
-        date = request.form["date"]
+    connection=sqlite3.connect("booking_system.db")
 
-        connection = sqlite3.connect("booking_system.db")
+    if request.method=="POST":
 
-        count = connection.execute(
+        training=request.form["training"]
+
+        trainer,time=training.split("|")
+
+        date=request.form["date"]
+
+        count=connection.execute(
             """
             SELECT COUNT(*)
 
             FROM bookings
 
-            WHERE trainer_name = ?
-            AND booking_date = ?
-            AND booking_time = ?
+            WHERE trainer_name=?
+            AND booking_date=?
+            AND booking_time=?
             """,
-            (trainer, date, time)
+            (trainer,date,time)
         ).fetchone()[0]
 
-        if count >= 5:
+        if count>=5:
 
             connection.close()
 
@@ -119,9 +129,14 @@ def booking():
         connection.execute(
             """
             INSERT INTO bookings
-            (user_id, trainer_name, booking_date, booking_time)
+            (
+            user_id,
+            trainer_name,
+            booking_date,
+            booking_time
+            )
 
-            VALUES (?, ?, ?, ?)
+            VALUES(?,?,?,?)
             """,
             (
                 session["user_id"],
@@ -133,41 +148,9 @@ def booking():
 
         connection.commit()
 
-        trainings = [
-
-            ("Mustafa Baskaya", "12:00"),
-
-            ("Muzaffer Celik", "14:00"),
-
-            ("Mehmet Dagli", "16:00")
-
-        ]
-
-        training_data = []
-
-        for trainer_name, training_time in trainings:
-
-            booked = connection.execute(
-                """
-                SELECT COUNT(*)
-
-                FROM bookings
-
-                WHERE trainer_name = ?
-                AND booking_time = ?
-                """,
-                (trainer_name, training_time)
-            ).fetchone()[0]
-
-            remaining = 5 - booked
-
-            training_data.append(
-                (trainer_name, training_time, remaining)
-            )
+        remaining=5-(count+1)
 
         connection.close()
-
-        remaining = 5 - (count + 1)
 
         return render_template(
             "booking_success.html",
@@ -177,38 +160,16 @@ def booking():
             remaining=remaining
         )
 
-    trainings = [
+    training_data=[]
 
-        ("Mustafa Baskaya", "12:00"),
-
-        ("Muzaffer Celik", "14:00"),
-
-        ("Mehmet Dagli", "16:00")
-
-    ]
-
-    training_data = []
-
-    connection = sqlite3.connect("booking_system.db")
-
-    for trainer, time in trainings:
-
-        count = connection.execute(
-            """
-            SELECT COUNT(*)
-
-            FROM bookings
-
-            WHERE trainer_name = ?
-            AND booking_time = ?
-            """,
-            (trainer, time)
-        ).fetchone()[0]
-
-        remaining = 5 - count
+    for trainer,time in trainings:
 
         training_data.append(
-            (trainer, time, remaining)
+            (
+                trainer,
+                time,
+                5
+            )
         )
 
     connection.close()
@@ -223,30 +184,46 @@ def booking():
 def admin():
 
     if "user_id" not in session:
+
         return redirect("/login")
 
-    if session["email"] != "admin@dfa.dk":
+    if session["email"]!="admin@dfa.dk":
+
         return "Ingen adgang"
 
-    connection = sqlite3.connect("booking_system.db")
+    connection=sqlite3.connect("booking_system.db")
 
-    users = connection.execute(
-        "SELECT id, name, email FROM users"
-    ).fetchall()
-
-    bookings = connection.execute(
+    users=connection.execute(
         """
         SELECT
-            bookings.id,
-            users.name,
-            trainer_name,
-            booking_date,
-            booking_time
+        id,
+        name,
+        email
+
+        FROM users
+        """
+    ).fetchall()
+
+
+    bookings=connection.execute(
+        """
+        SELECT
+
+        bookings.id,
+        users.name,
+        bookings.trainer_name,
+        bookings.booking_date,
+        bookings.booking_time
 
         FROM bookings
 
         JOIN users
-        ON bookings.user_id = users.id
+        ON bookings.user_id=users.id
+
+        ORDER BY
+        bookings.trainer_name,
+        bookings.booking_date,
+        bookings.booking_time
         """
     ).fetchall()
 
@@ -262,10 +239,13 @@ def admin():
 @app.route("/delete_booking/<int:id>")
 def delete_booking(id):
 
-    connection = sqlite3.connect("booking_system.db")
+    connection=sqlite3.connect("booking_system.db")
 
     connection.execute(
-        "DELETE FROM bookings WHERE id = ?",
+        """
+        DELETE FROM bookings
+        WHERE id=?
+        """,
         (id,)
     )
 
@@ -283,6 +263,10 @@ def logout():
     return redirect("/login")
 
 
-if __name__ == "__main__":
+if __name__=="__main__":
 
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(
+        host="0.0.0.0",
+        port=5000,
+        debug=True
+    )
