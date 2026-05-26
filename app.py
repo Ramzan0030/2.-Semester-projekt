@@ -254,6 +254,23 @@ def delete_booking(id):
 
     return redirect("/admin")
 
+@app.route("/delete_user/<int:id>")
+def delete_user(id):
+
+    connection = sqlite3.connect("booking_system.db")
+
+    connection.execute(
+        """
+        DELETE FROM users
+        WHERE id=?
+        """,
+        (id,)
+    )
+
+    connection.commit()
+    connection.close()
+
+    return redirect("/admin")
 
 @app.route("/logout")
 def logout():
