@@ -254,7 +254,9 @@ def delete_booking(id):
 
     return redirect("/admin")
 
-
+@app.route("/trainers")
+def trainers():
+    return render_template("trainers.html")
 
 @app.route("/logout")
 def logout():
